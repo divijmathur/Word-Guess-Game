@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +5,9 @@
 
     <title>Word Guess Game</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Josefin+Slab|Gaegu|Rancho|Titan+One|Bowlby+One" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -14,44 +15,52 @@
 
 
 <body>
-    <header class="main-header text-primary text-right">
-            <h1 class="">Word Guess Game</h1>
-            <h2>90s Hits</h2>
+    <header class="main-header text-right text-primary">
+            <h1>Word Guess Game</h1>
+            <h2>Best hits of the 90s</h2>
+            <h2 id="pressPlay">Guess the song!</h2>
     </header>
 
     <main>
         <div class="container">
-            <div class="left side">
-                <div class="wins col-md-2 alert alert-success" role="alert">
-                    <h4>Wins: </h4>
-                    <p id="numWins"></p>
-                </div>
-                <div class="losses col-md-2 alert alert-danger" role="alert">
-                    <h4>Losses: </h4>
-                    <p id="numLosses"></p>
-                </div>
-                <p id="answerWord" class="text-left"> </p>
+            <div id="randomSpace"> </div>
+            <h4>Current Word</h4>
+            <div id="currentWord"></div>
+            <br>
+            <div>
+                <h4>Letters Guessed</h4>
+                <div id="lettersGuessed">--</div>
             </div>
-            <div class="right-side">
-                <div class="numGuesses col-md-2 alert alert-warning" role="alert">
-                        <h4>Guesses remaining: </h4>
-                        <p id="numGuesses"></p>
+            <div class="rightSide">
+                    <div class="guessesLeft">
+                        <button type="button" class="btn btn-info">
+                            Guesses Left:
+                            <div id="guessesLeft">--</div> 
+                        </button>
+                    </div>    
+            </div>
+            <br>
+            <div class="leftSide">
+                <div class="wins">
+                    <button type="button" class="btn btn-primary">
+                        Wins
+                        <div id="wins">0</div>
+                    </button>
                 </div>
-                <div class="guessedLetters col-md-2 alert alert-info hideOverflow" role="alert">
-                        <h4>Guessed Letter: </h4>
-                        <p id="guessedLetters"></p>
+                <br>
+                <div class="lastSide">
+                    <div class="loses">
+                        <button type="button" class="btn btn-danger">
+                            Loses
+                            <div id="loses">0</div>
+                        </button>
                 </div>
             </div>
-        </div>
     </main>
 
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="assets/javascript/game.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="assets/javascript/game.js" type="text/javascript"></script>
 </body>
 </html>
-
-
