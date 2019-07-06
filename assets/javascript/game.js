@@ -1,131 +1,210 @@
-var words = ["I WILL ALWAYS LOVE YOU","WANNABE","SMELLS LIKE TEEN SPIRIT", "NO DIGGITY","BABY ONE MORE TIME","LIVIN LA VIDA LOCA","NO SCRUBS","LOSER"];
+// GLOBAL VARIABLES (Accessible by all functions)
+// ==================================================================================================
 
-var maxNumGuesses = 9; 
-var guessedLetters = []; 
-var ansWordArr = []; 
-var numGuessesRemaining = 0;
-var numWins = 0;
-var numLosses = 0; 
-var isFinished = false; 
-var ansWord; 
+// Array of Word Options (all lowercase).
+var wordsList = ["smoothe","wannabe","bootylicious","fantasy","loser", "waterfalls"]; //word list
+// GLOBAL VARIABLES (Accessible by all functions)
+// ==================================================================================================
 
-function setup() {
-    ansWord = words[Math.floor(Math.random() * words.length)];
 
-    ansWordArr = [];
 
-    for (var i = 0; i < ansWord.length; i++) {
-        ansWordArr[i] = "_";
+// Computer selected solution will be held here.
+var chosenWord = "";
+
+// This will break the solution into individual letters to be stored in array.
+var lettersInChosenWord = [];
+
+// This will be the number of blanks we show based on the solution.
+var numBlanks = 0;
+
+// Holds a mix of blank and solved letters (ex: 'n, _ _, n, _').
+var blanksAndSuccesses = [];
+
+// Holds all of the wrong guesses.
+var wrongGuesses = [];
+
+// Holds the letters guessed
+var letterGuessed = "";
+
+// Game counters
+var winCounter = 0;
+var lossCounter = 0;
+var numGuesses = 9;
+
+// FUNCTIONS (These are bits of code that we will call upon to run when needed).
+// ==================================================================================================
+
+// startGame()
+// It's how we we will start and restart the game.
+// (Note: It's not being run here. Function declarations like this are made for future use.)
+function startGame() {
+
+  // Reset the guesses back to 0.
+  numGuesses = 9;
+
+  // Solution chosen randomly from wordList.
+  chosenWord = wordsList[Math.floor(Math.random() * wordsList.length)];
+
+  // The word is broken into individual letters.
+  lettersInChosenWord = chosenWord.split("");
+
+  // We count the number of letters in the word.
+  numBlanks = lettersInChosenWord.length;
+
+  // We print the solution in console (for testing).
+  console.log(chosenWord);
+
+  // CRITICAL LINE
+  // Here we *reset* the guess and success array at each round.
+  blanksAndSuccesses = [];
+
+  // CRITICAL LINE
+  // Here we *reset* the wrong guesses from the previous round.
+  wrongGuesses = [];
+
+  // Fill up the blanksAndSuccesses list with appropriate number of blanks.
+  // This is based on number of letters in solution.
+  for (var i = 0; i < numBlanks; i++) {
+    blanksAndSuccesses.push("_");
+  }
+
+  // Print the initial blanks in console.
+  console.log(blanksAndSuccesses);
+
+  // Reprints the guessesLeft to 9.
+  document.getElementById("guesses-left").innerHTML = numGuesses;
+
+  // Prints the blanks at the beginning of each round in the HTML.
+  document.getElementById("word-blanks").innerHTML = blanksAndSuccesses.join(" ");
+
+  // Clears the wrong guesses from the previous round.
+  document.getElementById("wrong-guesses").innerHTML = wrongGuesses.join(" ");
+}
+
+// checkLetters() function
+// It's where we will do all of the comparisons for matches.
+// Again, it's not being called here. It's just being made for future use.
+function checkLetters(letter) {
+
+  // This boolean will be toggled based on whether or not
+  // a user letter is found anywhere in the word.
+  var letterInWord = false;
+
+  // Check if a letter exists inside the array at all.
+  for (var i = 0; i < numBlanks; i++) {
+
+    if (chosenWord[i] === letter) {
+
+      // If the letter exists then toggle this boolean to true.
+      // This will be used in the next step.
+      letterInWord = true;
+    }
+  }
+
+  // If the letter exists somewhere in the word,
+  // then figure out exactly where (which indices).
+  if (letterInWord) {
+
+    // Loop through the word
+    for (var j = 0; j < numBlanks; j++) {
+
+      // Populate the blanksAndSuccesses with every instance of the letter.
+      if (chosenWord[j] === letter) {
+
+        // Here we set specific blank spaces to equal the correct letter
+        // when there is a match.
+        blanksAndSuccesses[j] = letter;
+      }
     }
 
-    numGuessesRemaining = maxNumGuesses;
-    guessedLetters = [];
+    // Log the current blanks and successes for testing.
+    console.log(blanksAndSuccesses);
+  }
 
-    //clears giphy-embed to now show any gifs
-    document.getElementById("giphy-embed").src = "";
-    //removes color from numGuesses
-    document.getElementById("numGuesses").style.color = "";
+  // If the letter doesn't exist at all...
+  else {
 
-    //show the selected elements on the screen 
-    updateScreen();
-};
+    // Then we add the letter to the list of wrong letters.
+    wrongGuesses.push(letter);
 
-//updates the HTML from the functions
-function updateScreen() {
-    document.getElementById("numWins").innerText = numWins;
-    document.getElementById("numLosses").innerText = numLosses;
-    document.getElementById("numGuesses").innerText = numGuessesRemaining;
-    document.getElementById("answerWord").innerText = ansWordArr.join("");
-    document.getElementById("guessedLetters").innerText = guessedLetters;
+    // We also subtract one of the guesses.
+    numGuesses--;
 
-};
+  }
 
-//function to check the key that's pressed
-function checkGuess(letter) {
-    //if letter is not in guessedLetters array then push the letter to the array
-    if (guessedLetters.indexOf(letter) === -1) {
-        guessedLetters.push(letter);
-        //if the letter isn't in the answer word then -1 the numGuessesRemaining
-        if (ansWord.indexOf(letter) === -1) {
-            numGuessesRemaining--;
-            //if numGuessesRemaining is 3 or less then change the color
-            if (numGuessesRemaining <=3) {
-                document.getElementById("numGuesses").style.color = "#e12d2e";
-            }
-            //if letter is in answer then replace the positioned "_" with the letter
-        } else { 
-            for (var i = 0; i < ansWord.length; i++) {
-                if (letter === ansWord[i]) {
-                    ansWordArr[i] = letter;
-                } 
-            }                
-        }
-    }
+}
 
-}; 
+// roundComplete() function
+// Here we will have all of the code that needs to be run after each guess is made.
+function roundComplete() {
 
-//function to check if the player is a winner
-function isWinner() {
-    //if there are no more "_" in the ansWordArr then +1 to Wins and switch isFinished to true
-    if (ansWordArr.indexOf("_") === -1) {
-        numWins++;
-        isFinished = true;
-        //if the answer is guessed then play assigned gif
-        if(ansWord === "DOUG") {
-            document.getElementById("giphy-embed").src = "https://giphy.com/embed/w7iOaLoi84N6E";
-        } else if (ansWord === "RUGRATS") {
-            document.getElementById("giphy-embed").src = "https://giphy.com/embed/3x5V8j8T341lS";
-        } else if (ansWord === "SPONGEBOB") {
-            document.getElementById("giphy-embed").src = "https://giphy.com/embed/TdfyKrN7HGTIY";
-        } else if (ansWord === "POKEMON") {
-            document.getElementById("giphy-embed").src = "https://giphy.com/embed/xuXzcHMkuwvf2";
-        } else if (ansWord === "ANIMANIACS") {
-            document.getElementById("giphy-embed").src = "https://giphy.com/embed/Vpu0dyuOVbrBC";
-        } else if (ansWord === "RECESS") {
-            document.getElementById("giphy-embed").src = "https://giphy.com/embed/ENjchsyk8aSoE";
-        } else if (ansWord === "CATDOG") {
-            document.getElementById("giphy-embed").src = "https://giphy.com/embed/VqWjJR7vOwmSk";
-        } else if (ansWord === "SIMPSONS") {
-            document.getElementById("giphy-embed").src = "https://giphy.com/embed/tkYpAbKdWj4TS";
-        }
-            
-    }
-};
-//function to check if player is a loser
-function isLoser() {
-    // if the numGuessesRemaining is 0 then -1 numLosses and switch isFinished to true
-    if(numGuessesRemaining <= 0) {
-        numLosses++;
-        isFinished = true;
-        //play the loser gif
-        document.getElementById("giphy-embed").src = "https://giphy.com/embed/3oFzmko6SiknmpR2NO";
-        document.getElementById("numLosses").style.color = "#e12d2e";
-    }
+  // First, log an initial status update in the console
+  // telling us how many wins, losses, and guesses are left.
+  console.log("WinCount: " + winCounter + " | LossCount: " + lossCounter + " | NumGuesses: " + numGuesses);
 
-};
+  // HTML UPDATES
+  // ============
 
+  // Update the HTML to reflect the new number of guesses.
+  document.getElementById("guesses-left").innerHTML = numGuesses;
 
-//event listener for key pressed
+  // This will print the array of guesses and blanks onto the page.
+  document.getElementById("word-blanks").innerHTML = blanksAndSuccesses.join(" ");
+
+  // This will print the wrong guesses onto the page.
+  document.getElementById("wrong-guesses").innerHTML = wrongGuesses.join(" ");
+
+  // If our hangman string equals the solution.
+  // (meaning that we guessed all the letters to match the solution)...
+  if (lettersInChosenWord.toString() === blanksAndSuccesses.toString()) {
+
+    // Add to the win counter
+    winCounter++;
+
+    // Give the user an alert
+    alert("You win!");
+
+    // Update the win counter in the HTML
+    document.getElementById("win-counter").innerHTML = winCounter;
+
+    // Restart the game
+    startGame();
+  }
+
+  // If we've run out of guesses
+  else if (numGuesses === 0) {
+
+    // Add to the loss counter
+    lossCounter++;
+
+    // Give the user an alert
+    alert("You lose");
+
+    // Update the loss counter in the HTML
+    document.getElementById("loss-counter").innerHTML = lossCounter;
+
+    // Restart the game
+    startGame();
+
+  }
+
+}
+
+// MAIN PROCESS (THIS IS THE CODE THAT CONTROLS WHAT IS ACTUALLY RUN)
+// ==================================================================
+
+// Starts the Game by running the startGame() function
+startGame();
+
+// Then initiates the function for capturing key clicks.
 document.onkeyup = function(event) {
-    //if isFinished is true then restart the game to the initial setup 
-    //and switch isFinished back to false
-    if (isFinished) {
-        setup();
-        isFinished = false;
-    } else {
-        //check to see if only letters A-Z are pressed
-        //functions are executed when user presses A-Z key
-        if(event.keyCode >= 65 && event.keyCode <= 90) {
-            checkGuess(event.key.toUpperCase()); 
-            updateScreen();
-            isWinner();
-            isLoser();
-        }
-    }
+
+  // Converts all key clicks to lowercase letters.
+  letterGuessed = String.fromCharCode(event.which).toLowerCase();
+
+  // Runs the code to check for correct guesses.
+  checkLetters(letterGuessed);
+
+  // Runs the code that ends each round.
+  roundComplete();
 };
-
-
-setup();
-updateScreen();
-
-console.log(ansWord);
