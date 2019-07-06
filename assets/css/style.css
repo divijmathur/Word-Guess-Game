@@ -18,6 +18,16 @@ h4 {
     color: black;
 }
 
+h2, {
+    text-align: center;
+}
+
+.centerTool {
+    text-align: center;
+}
+
+
+
 #mainpicture {
     display: block;
     margin-left: auto;

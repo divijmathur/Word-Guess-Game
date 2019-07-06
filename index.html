@@ -18,7 +18,7 @@
             <!-- Jumbotron holds the title section. -->
             <!-- <div class='jumbotron col-3'> -->
                 <div class="container">
-                  <h2 class="d-inline p-2 bg-primary text-white"> Guess the hits of the 90s! </h2>
+                  <h2 class="d-inline p-2 bg-primary text-white" > Guess the hits of the 90s! </h2>
                   <h2 class="d-inline p-2 bg-primary text-white"> Press any key to begin </h2>
                 </div>
               
@@ -29,13 +29,13 @@
                 <!-- First Panel: Holds the Word to Guess (blanks and guessed word). -->
                 <div class='panel panel-default'>
                   <div class='panel-heading'>
-                    <h2 class='panel-title text-left'>Word to Guess</h2>
+                    <h2 class='panel-title centerTool' style="text-align: center;">Word to Guess</h2>
                   </div>
       
                   <div class='panel-body'>
       
-                    <!-- This h3 section called word-blanks is what we'll be replacing with letters as the user guesses. Pay particular attention to the id called ***word-blanks***. We'll be referencing this in the JavaScript. -->
-                    <h2 id='word-blanks'>_ _ _ _ _ _ _ _ _ </h2>
+                    <!-- This h2 section called word-blanks is what we'll be replacing with letters as the user guesses. Pay particular attention to the id called ***word-blanks***. We'll be referencing this in the JavaScript. -->
+                    <h2 id='word-blanks' class="centerTool">_ _ _ _ _ _ _ _ _ </h2>
       
                   </div>
       
@@ -46,7 +46,7 @@
                   <div class='panel-body'>
       
                     <!-- This span section called wrong-guesses is where we will be dumping the wrong guesses. Pay particular attention to the id called ****wrong-guesses***. We'll be referencing this in the JavaScript. -->
-                    <strong>Wrong Guesses: </strong> <span id='wrong-guesses'></span>
+                    <div id="wrong" class="centerTool">Wrong Guesses: </div> <div id='wrong-guesses' class="centerTool"></div>
       
                   </div>
                 </div>
@@ -56,7 +56,7 @@
                   <div class='panel-body'>
       
                     <!-- This span is where we'll dump the number of guesses left. Pay attention to the id called ****guesses-left**** we'll be referencing this in the JavaScript. -->
-                    <strong>Guesses Left: </strong> <span id='guesses-left'>9</span>
+                    <div class="centerTool">Guesses Left: </div> <div id='guesses-left' class="centerTool">9</div>
       
                   </div>
       
@@ -68,7 +68,7 @@
                   <div class='panel-body'>
       
                     <!-- This span called win-counter is where we'll be dumping the number of wins. Pay attention to the id called ****win-counter*** we'll be referencing this in the JavaScript. -->
-                    <strong>Wins: </strong> <span id='win-counter'>0</span>
+                    <div class="centerTool">Wins: </div> <div id='win-counter' class="centerTool">0</div>
       
                   </div>
       
@@ -79,7 +79,7 @@
                   <div class='panel-body'>
       
                     <!-- This span called loss-counter is where we'll be dumping the number of losses. Pay attention to the id called ****loss-counter***; we'll be referencing this in the JavaScript. -->
-                    <strong>Losses: </strong> <span id='loss-counter'>0</span>
+                    <div class="centerTool">Losses: </div> <div id='loss-counter' class="centerTool">0</div>
       
                   </div>
       
