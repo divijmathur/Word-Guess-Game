@@ -204,6 +204,7 @@ document.onkeyup = function(event) {
 
   // Runs the code to check for correct guesses.
   checkLetters(letterGuessed);
+  document.querySelector("#audio").play();
 
   // Runs the code that ends each round.
   roundComplete();

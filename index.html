@@ -16,28 +16,26 @@
     <div class='container'>
 
             <!-- Jumbotron holds the title section. -->
-            <div class='jumbotron'>
-              <div class='container'>
-                <h1>Choose That Candy</h1>
-                <h2>Guess the name of favorite!</h2>
-                <small>Click any letter to begin...</small>
-              </div>
-            </div>
-      
-            <!-- Game counters held here. Panels are being used to hold various sections. -->
+            <!-- <div class='jumbotron col-3'> -->
+                <div class="container">
+                  <h2 class="d-inline p-2 bg-primary text-white"> Guess the hits of the 90s! </h2>
+                  <h2 class="d-inline p-2 bg-primary text-white"> Press any key to begin </h2>
+                </div>
+              
+            <!-- Game counters held here. -->
             <div class='row'>
               <div class='col-lg-12'>
       
                 <!-- First Panel: Holds the Word to Guess (blanks and guessed word). -->
                 <div class='panel panel-default'>
                   <div class='panel-heading'>
-                    <h3 class='panel-title'><strong>Word to Guess</strong></h3>
+                    <h2 class='panel-title text-left'>Word to Guess</h2>
                   </div>
       
                   <div class='panel-body'>
       
                     <!-- This h3 section called word-blanks is what we'll be replacing with letters as the user guesses. Pay particular attention to the id called ***word-blanks***. We'll be referencing this in the JavaScript. -->
-                    <h3 id='word-blanks'>_ _ _ _ _ _ _ _ _ </h3>
+                    <h2 id='word-blanks'>_ _ _ _ _ _ _ _ _ </h2>
       
                   </div>
       
@@ -90,6 +88,9 @@
               </div>
       
             </div>
+            <audio id="audio" controls style = "display: none">
+              <source src="assets/sounds/mambo.mp3" type="audio/mp3">
+            </audio>
       
           </div>
       
