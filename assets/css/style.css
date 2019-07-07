@@ -26,8 +26,16 @@ h2, {
     text-align: center;
 }
 
-
-
+#heading {
+    color: #6BD052;
+    background-color: #5170FF;
+    margin: 190px;
+    
+    
+}
+#sizing {
+    float: center;
+}
 #mainpicture {
     display: block;
     margin-left: auto;
